@@ -1,0 +1,82 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+bootJar {
+   archiveFileName = 'backendmic.jar'
+}
+
+
+apply plugin: 'war'
+
+bootWar {
+   archiveFileName = 'backend.war'
+}
+/*
+war {
+    baseName = 'spring-boot-war-example'
+    version = '0.0.1-SNAPSHOT'
+	archiveFileName = 'backend.war'
+}
+*/
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	providedRuntime
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencies {
+	implementation 'com.itextpdf:itext7-core:7.0.2'
+	implementation 'org.apache.pdfbox:pdfbox:1.8.6'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.0.M2'
+	implementation('org.springframework.security.oauth:spring-security-oauth2')
+	implementation 'mysql:mysql-connector-java'
+	compileOnly 'org.projectlombok:lombok:1.18.8'
+	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+
+	implementation group: 'org.apache.poi', name: 'poi', version: '3.11'
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.11'
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+	// https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
+	implementation group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
+
+
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'io.projectreactor:reactor-test'
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+}
+
+test {
+	useJUnitPlatform()
+}
